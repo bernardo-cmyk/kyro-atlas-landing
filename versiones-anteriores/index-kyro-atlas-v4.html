@@ -517,9 +517,6 @@ footer .pend{background:var(--gold-soft);color:var(--gold-2);border-color:rgba(2
 .gn{animation:gn 3.2s ease-in-out infinite}
 @keyframes gn{0%,100%{opacity:.65}50%{opacity:1}}
 @media (prefers-reduced-motion:reduce){.gn{animation:none}}
-.wv{animation:wv 16s linear infinite}
-@keyframes wv{from{transform:translateX(0)}to{transform:translateX(-250px)}}
-@media (prefers-reduced-motion:reduce){.wv{animation:none}}
 header.top .wrap{max-width:1240px}
 .nav ul{gap:20px}
 @media (max-width:1100px){.nav ul{display:none}}
@@ -1148,33 +1145,6 @@ header.top .wrap{max-width:1240px}
     el('stop',{offset:'0','stop-color':'#fff1c9','stop-opacity':'1'},goldG); el('stop',{offset:'.35','stop-color':'#ffc35a','stop-opacity':'.6'},goldG); el('stop',{offset:'1','stop-color':'#ffb347','stop-opacity':'0'},goldG);
     el('circle',{cx:250,cy:290,r:250,fill:'url(#halo)'},v);
 
-    // ondas de energía cian y doradas que cruzan la imagen (se repiten cada 250 px para un bucle continuo)
-    var fadeG = el('linearGradient',{id:'wvFade',x1:'0',x2:'1',y1:'0',y2:'0'},defs);
-    [[0,0],[.14,1],[.86,1],[1,0]].forEach(function(s){ el('stop',{offset:s[0],'stop-color':'#fff','stop-opacity':s[1]},fadeG); });
-    var wvMask = el('mask',{id:'wvMask',maskUnits:'userSpaceOnUse',x:0,y:0,width:500,height:540},defs);
-    el('rect',{x:0,y:0,width:500,height:540,fill:'url(#wvFade)'},wvMask);
-    var wvGlow = el('filter',{id:'wvGlow',x:'-10%',y:'-50%',width:'120%',height:'200%'},defs);
-    el('feGaussianBlur',{stdDeviation:'1.2',result:'b'},wvGlow);
-    var wm = el('feMerge',{},wvGlow); el('feMergeNode',{'in':'b'},wm); el('feMergeNode',{'in':'SourceGraphic'},wm);
-    var waves = el('g',{mask:'url(#wvMask)'},v);
-    function waveBundle(yc, amp, col, lines, spread, ph, dur, rev, width){
-      var L = 250, g = el('g',{'class':'wv',fill:'none',stroke:col,'stroke-linecap':'round',filter:'url(#wvGlow)',
-        style:'animation-duration:'+dur+'s'+(rev?';animation-direction:reverse':'')},waves);
-      for(var l=0;l<lines;l++){
-        var k = l-(lines-1)/2, op = .16 + .5*(1-Math.abs(k)/((lines+1)/2)), d = '';
-        for(var x=-10;x<=760;x+=5){
-          var u = x/L*Math.PI*2;
-          var y = yc + Math.sin(u+ph+l*.18)*amp + Math.sin(u*2-ph*1.3+l*.1)*amp*.32 + k*spread*(1+.55*Math.sin(u+ph*.7));
-          d += (x===-10?'M':'L')+x+' '+y.toFixed(1);
-        }
-        el('path',{d:d,'stroke-width':width,opacity:op.toFixed(2)},g);
-      }
-    }
-    waveBundle(232, 22, '#37dcff', 9, 2.6, 0.0, 18, false, .9);
-    waveBundle(300, 26, '#ffc35a', 7, 2.4, 2.1, 22, true, .9);
-    waveBundle(372, 20, '#5fe3ff', 7, 2.8, 4.2, 26, false, .8);
-    waveBundle(440, 16, '#ffd58a', 5, 2.2, 1.0, 20, true, .7);
-
     // fondo: red tenue y polvo de estrellas
     var bgS = el('g',{fill:'#9fdcff'},v), seed = 11;
     function rnd(){ seed = (seed*16807)%2147483647; return (seed-1)/2147483646; }
@@ -1205,7 +1175,6 @@ header.top .wrap{max-width:1240px}
       return HALF.map(function(c){ return c[0] + c.slice(1).map(function(n,i){ return i%2===0 && mirror ? 500-n : n; }).join(' '); }).join(' ');
     }
     var PIECES = [halfPath(false), halfPath(true)];
-    PIECES.forEach(function(d){ el('path',{d:d,fill:'#000','fill-opacity':'.55'},wvMask); });
 
     // volumen tenue debajo de los puntos
     var vol = el('g',{fill:'#2fb8ff',opacity:'.13',filter:'url(#soft)'},v);
@@ -1271,18 +1240,6 @@ header.top .wrap{max-width:1240px}
      'M240 420 L240 480','M231 424 Q227 446 234 468','M260 420 L260 480','M269 424 Q273 446 266 468' // tibia y pantorrilla
     ].forEach(function(d){ el('path',{d:d},mus); });
     [[238,410],[262,410]].forEach(function(p){ el('circle',{cx:p[0],cy:p[1],r:5.2},mus); });
-
-    // rostro: cejas, ojos, nariz, boca y orejas en puntos de luz; cráneo liso y calvo
-    var face = el('g',{fill:'none',stroke:'#c9f8ff','stroke-width':'1.25','stroke-linecap':'round','stroke-dasharray':'0 1.9',filter:'url(#glow)'},v);
-    ['M239 141.2 Q243 139.2 247.2 140.8','M261 141.2 Q257 139.2 252.8 140.8', // cejas
-     'M240.2 146.6 Q243.8 144.2 247.4 146.6 Q243.8 148.8 240.2 146.6', // ojo izquierdo
-     'M259.8 146.6 Q256.2 144.2 252.6 146.6 Q256.2 148.8 259.8 146.6', // ojo derecho
-     'M250 145 L249.2 153.6 Q250 155.6 252.4 154.4', // dorso y punta de la nariz
-     'M246.6 154.4 Q248 156 250 155.6', // ala nasal
-     'M245.4 160.4 Q250 162.6 254.6 160.4','M247.2 162.6 Q250 163.6 252.8 162.6', // labios
-     'M233.4 143.6 Q229.6 145.6 231 151.4 Q232 155.2 235 155.6','M266.6 143.6 Q270.4 145.6 269 151.4 Q268 155.2 265 155.6' // orejas
-    ].forEach(function(d){ el('path',{d:d},face); });
-    [[243.8,146.6],[256.2,146.6]].forEach(function(p){ el('circle',{cx:p[0],cy:p[1],r:1.15,fill:'#f2fdff',stroke:'none'},face); });
 
     // esqueleto de luz: columna y articulaciones doradas unidas como constelación
     var spineY = []; for(var sy=170; sy<=322; sy+=9.5) spineY.push(sy);
