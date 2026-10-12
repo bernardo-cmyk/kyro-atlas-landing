@@ -554,6 +554,21 @@ header.top .wrap{max-width:1240px}
 @media (max-width:1100px){.nav ul{display:none}}
 @media (max-width:860px){.hero-grid{padding-top:56px;padding-bottom:72px}.hero{min-height:0}}
 @media (max-width:520px){.nav-right .btn{display:none}.nav .btn{display:none}}
+/* ===== v7: animación anatómica en la tarjeta ===== */
+.anat{margin:10px 0 4px;border:1px solid var(--line);border-radius:16px;background:radial-gradient(ellipse at 50% 55%,rgba(30,70,160,.32),transparent 70%),rgba(255,255,255,.02);padding:8px 10px 8px;cursor:pointer}
+.anat svg{display:block;width:100%;height:auto;max-height:210px}
+.anat .bn{fill:rgba(55,220,255,.1);stroke:#7ee9ff;stroke-width:1.3;stroke-linejoin:round;filter:drop-shadow(0 0 3px rgba(55,220,255,.55))}
+.anat .bn.f{opacity:.55}
+.anat .dk{fill:rgba(255,213,138,.35);stroke:#ffd58a;stroke-width:.8}
+.anat .rb{fill:none;stroke:#5fe3ff;stroke-width:1.6;stroke-linecap:round;opacity:.8}
+.anat .tn{fill:none;stroke:#ffd58a;stroke-width:1.8;stroke-linecap:round;stroke-dasharray:0 3.4;filter:drop-shadow(0 0 3px rgba(255,213,138,.8))}
+.anat .jn{fill:#ffd58a;filter:drop-shadow(0 0 4px rgba(255,213,138,.9))}
+.anat .pl{fill:url(#anGold);opacity:0;animation:anp 1.2s ease-in-out 4}
+@keyframes anp{50%{opacity:.8}}
+.anat.lum .dk{animation:dkp 1.2s ease-in-out 4}
+@keyframes dkp{50%{fill:rgba(255,213,138,.9)}}
+.anat figcaption{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);text-align:center;margin-top:4px}
+@media (prefers-reduced-motion:reduce){.anat .pl,.anat.lum .dk{animation:none}.anat .pl{opacity:.6}}
 /* ===== v4: blog ===== */
 .blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:40px}
 .post{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;text-decoration:none;color:var(--ink);transition:border-color .2s,box-shadow .2s,transform .2s}
@@ -1431,6 +1446,108 @@ header.top .wrap{max-width:1240px}
     spineLabels.forEach(function(s,i){ s[1].textContent = t.sp[i][0]; s[2].textContent = t.sp[i][1]; s[0].setAttribute('aria-label', t.ver + t.sp[i][1] + t.reg + t.sp[i][0]); });
   }
 
+  // ---------- Animación anatómica por zona (se muestra en la tarjeta de información) ----------
+  var ANAT_CAP = {
+    'cuello':{es:'Flexión y extensión cervical',en:'Cervical flexion and extension'},
+    'espalda-alta':{es:'Movilidad torácica y costillas',en:'Thoracic and rib mobility'},
+    'espalda-baja':{es:'Flexión y extensión lumbar · discos',en:'Lumbar flexion and extension · discs'},
+    'hombro':{es:'Elevación del brazo y ritmo escapular',en:'Arm elevation and scapular rhythm'},
+    'mano':{es:'Flexión de codo y muñeca',en:'Elbow and wrist flexion'},
+    'cadera':{es:'Flexión y extensión de cadera',en:'Hip flexion and extension'},
+    'rodilla':{es:'Flexión de rodilla y deslizamiento de la rótula',en:'Knee flexion and kneecap glide'},
+    'pie':{es:'Flexión dorsal y plantar del tobillo',en:'Ankle dorsiflexion and plantarflexion'}
+  };
+  function rot(vals, cx, cy){
+    if(reduce.matches) return '';
+    var n = vals.length;
+    return '<animateTransform attributeName="transform" type="rotate" values="'+vals.map(function(a){ return a+' '+cx+' '+cy; }).join(';')+
+      '" keyTimes="'+vals.map(function(_,i){ return (i/(n-1)).toFixed(3); }).join(';')+'" calcMode="spline" keySplines="'+
+      vals.slice(1).map(function(){ return '.45 0 .55 1'; }).join(';')+'" dur="2.4s" repeatCount="2"/>';
+  }
+  function P(d, c){ return '<path class="'+(c||'bn')+'" d="'+d+'"/>'; }
+  function C(x, y, r, c){ return '<circle class="'+(c||'bn')+'" cx="'+x+'" cy="'+y+'" r="'+r+'"/>'; }
+  function pl(x, y, r){ return C(x, y, r||24, 'pl'); }
+  function vert(x, y, w, h, sp, rib){
+    var s = '<rect class="bn" x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="2.5"/>'+
+      P('M'+x+' '+(y+1.5)+'L'+(x-7)+' '+(y+1)+'L'+(x-7-sp)+' '+(y+h+3)+'L'+(x-9-sp)+' '+(y+h+.5)+'L'+(x-8)+' '+(y+h-1)+'L'+x+' '+(y+h-1.5)+'Z');
+    if(rib) s = P('M'+(x-4)+' '+(y+h/2)+'C'+(x-30)+' '+(y+h+4)+' '+(x+w+20)+' '+(y+h+34)+' '+(x+w+50)+' '+(y+h+18), 'rb') + s;
+    return s;
+  }
+  // columna en vista lateral: cada vértebra gira un poco sobre la de abajo, el movimiento se suma
+  function vstack(o){
+    var s = '', end = '';
+    for(var i=0;i<o.n;i++){
+      var yi = o.y - o.h - i*(o.h+o.gap), cx = o.x + o.w/2, cy = +(yi + o.h + o.gap/2).toFixed(1);
+      s += '<g>' + (i ? rot(o.vals, cx, cy) : '');
+      if(i) s += '<rect class="dk" x="'+(o.x+1.5)+'" y="'+(yi+o.h+.6).toFixed(1)+'" width="'+(o.w-3)+'" height="'+(o.gap-1.2).toFixed(1)+'" rx="1.5"/>';
+      s += vert(o.x, +yi.toFixed(1), o.w, o.h, o.sp, o.rib);
+      end += '</g>';
+    }
+    return s + (o.top ? o.top(+(o.y - o.n*(o.h+o.gap) + o.gap).toFixed(1)) : '') + end;
+  }
+  var ANAT = {
+    'cuello': function(){
+      return pl(160,112,30) + vert(150,163.4,24,10,13) +
+        vstack({n:7,x:150,y:160,h:10,gap:3.4,w:24,sp:13,vals:[0,-4.5,0,4,0],top:function(yt){
+          return '<ellipse class="bn" cx="164" cy="'+(yt-30)+'" rx="36" ry="29"/>'+
+            P('M192 '+(yt-20)+'L204 '+(yt-6)+'L196 '+(yt+2)+'L178 '+(yt+4)+'L172 '+(yt-4))+C(188,yt-30,4)+
+            C(138,yt-8,1.8,'jn');
+        }});
+    },
+    'espalda-alta': function(){
+      return pl(131,96,34) + vstack({n:8,x:118,y:150,h:11,gap:3.2,w:26,sp:16,rib:true,vals:[0,-2.6,0,2.6,0]}) +
+        P('M196 52 Q204 110 196 168','tn');
+    },
+    'espalda-baja': function(){
+      return pl(145,112,30) + '<rect class="dk" x="129.5" y="128.6" width="31" height="4.8" rx="1.5"/>'+
+        P('M126 134L164 134L158 152L146 170L136 172L130 156Z') +
+        vstack({n:5,x:128,y:128,h:17,gap:6,w:34,sp:16,vals:[0,5,0,-4,0]});
+    },
+    'hombro': function(){
+      return pl(166,62,30) + P('M70 56Q110 38 168 42L168 50Q110 48 70 64Z') +
+        '<g>'+rot([0,-10,0],178,70)+P('M150 48L212 54L186 132Z','bn f')+'</g>'+
+        '<g>'+rot([0,-80,0],166,62)+C(166,62,13)+P('M158 72L160 146Q166 158 172 146L174 72Z')+'<ellipse class="bn" cx="166" cy="152" rx="11" ry="6"/></g>'+
+        P('M148 58A20 20 0 0 1 184 50','tn') + C(166,62,2.4,'jn');
+    },
+    'mano': function(){
+      return pl(122,82,26) + P('M20 56L118 74L116 88L18 70Z') + C(122,82,8) +
+        '<g>'+rot([0,-40,0],122,82)+
+          P('M126 75L210 77L210 82L126 80Z')+P('M124 84L208 86L208 91L124 90Z')+
+          '<g>'+rot([0,28,0,-28,0],212,84)+C(216,80,4)+C(216,89,4)+C(223,84.5,4)+
+            P('M226 78L256 70M227 82L260 78M227 87L260 86M226 91L256 95','rb')+
+            P('M256 70L278 66M260 78L284 76M260 86L284 88M256 95L276 99','rb')+P('M220 76L234 64L248 58','rb')+'</g>'+C(212,84,2,'jn')+
+        '</g>' + C(122,82,2.4,'jn');
+    },
+    'cadera': function(){
+      return pl(156,100,28) + P('M110 20C150 10 190 30 186 62C184 80 170 90 164 94L140 96C126 80 104 52 110 20Z') +
+        P('M164 98L198 106L192 118L160 112Z') + P('M142 104L130 130L142 132L154 110Z') +
+        '<g>'+rot([0,-70,0,14,0],156,100)+C(156,100,11)+P('M158 94L180 104L176 118L154 108Z')+C(181,112,7)+
+          P('M170 114L163 176L177 176L184 116Z')+'</g>' + C(156,100,2.4,'jn');
+    },
+    'rodilla': function(){
+      return pl(150,92,28) + P('M140 0L162 0L164 70Q170 94 150 97Q130 95 136 74Z') +
+        '<g>'+rot([0,75,0],150,100)+'<rect class="dk" x="132" y="97" width="36" height="4" rx="2"/>'+
+          P('M128 102L172 102L166 116L162 176L146 176L140 116Z')+P('M126 116L133 116L135 176L129 176Z','bn f')+P('M170 96Q171 108 166 120','tn')+'</g>'+
+        '<g>'+rot([0,40,0],150,90)+'<ellipse class="bn" cx="171" cy="80" rx="6" ry="11"/></g>'+
+        C(150,94,2.4,'jn');
+    },
+    'pie': function(){
+      return pl(124,108,26) + P('M98 0L106 0L106 104L98 104Z','bn f') + P('M112 0L134 0L136 96L110 96Z') +
+        '<g>'+rot([0,-16,0,22,0],124,108)+P('M108 100Q124 92 140 102L136 114L110 114Z')+
+          P('M84 112L112 110L120 124L92 132Q80 128 84 112Z')+P('M140 104L162 112L160 124L136 118Z')+
+          P('M162 112L222 124L220 132L160 124Z')+P('M222 124L246 128L244 134L220 132Z')+
+          P('M92 134Q160 142 222 135','tn')+'</g>' + P('M96 24Q90 80 92 112','tn') + C(124,108,2.4,'jn');
+    }
+  };
+  function anat(id){
+    if(!ANAT[id]) return '';
+    var c = ANAT_CAP[id][LANG];
+    return '<figure class="anat'+(id==='espalda-baja'?' lum':'')+'" role="img" aria-label="'+c+'"><svg viewBox="0 0 300 180" aria-hidden="true">'+
+      '<defs><radialGradient id="anGold"><stop offset="0" stop-color="#fff1c9"/><stop offset=".4" stop-color="#ffc35a" stop-opacity=".6"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient></defs>'+
+      '<g stroke="rgba(160,190,255,.09)" stroke-dasharray="1 5">'+[30,60,90,120,150].map(function(y){ return '<line x1="0" x2="300" y1="'+y+'" y2="'+y+'"/>'; }).join('')+'</g>'+
+      ANAT[id]()+'</svg><figcaption>'+c+'</figcaption></figure>';
+  }
+
   // ---------- Tarjeta de zona ----------
   function open(id){
     current = id;
@@ -1442,7 +1559,7 @@ header.top .wrap{max-width:1240px}
       html = head + '<h3>'+t.otrah+'</h3><p>'+t.otrap+'</p><div class="card-actions"><a class="btn btn-primary" href="#agenda" data-book="otra">'+t.bookg+'</a></div>';
     } else {
       var z = ZONES[id][LANG];
-      html = head + '<span class="eyebrow">'+t.sel+'</span><h3>'+esc(z.name)+'</h3>'+
+      html = head + '<span class="eyebrow">'+t.sel+'</span><h3>'+esc(z.name)+'</h3>'+anat(id)+
         '<div class="label">'+t.ve+'</div><p>'+esc(z.ve)+'</p>'+
         '<div class="label">'+t.ev+'</div><p>'+esc(z.ev)+'</p>'+
         '<div class="label">'+t.tr+'</div><p>'+esc(z.tr)+'</p>'+
@@ -1473,6 +1590,7 @@ header.top .wrap{max-width:1240px}
   document.addEventListener('click', function(e){
     var t = e.target.closest('[data-zone]');
     if(t && !t.closest('#zoneCard') && t.tagName!=='OPTION'){ pick(t.dataset.zone); return; }
+    var an = e.target.closest('.anat'); if(an && current){ an.outerHTML = anat(current); return; }
     var b = e.target.closest('[data-book]');
     if(b){ var sel=document.getElementById('f-zone'); sel.value=b.dataset.book; close(); }
     if(e.target.closest('.close-card') || e.target===scrim) close();
