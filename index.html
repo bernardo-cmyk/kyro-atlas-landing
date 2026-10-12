@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>KYRO ATLAS | Chiropractic &amp; Athletic Science en [Ciudad]</title>
-<meta name="description" content="KYRO ATLAS, Chiropractic &amp; Athletic Science en [Ciudad]. Quiropráctica clínica, rendimiento atlético y sauna de última generación. Elige la zona que te molesta y agenda tu valoración.">
+<title>KYRO ATLAS | Chiropractic &amp; Athletic Science en CDMX</title>
+<meta name="description" content="KYRO ATLAS, Chiropractic &amp; Athletic Science en CDMX. Quiropráctica clínica, rendimiento atlético y sauna de última generación. Elige la zona que te molesta y agenda tu valoración.">
 <meta property="og:title" content="KYRO ATLAS | Chiropractic &amp; Athletic Science">
 <meta property="og:description" content="Quiropráctica clínica, rendimiento atlético y sauna de última generación. Agenda tu valoración.">
 <meta name="robots" content="noindex">
@@ -520,6 +520,35 @@ footer .pend{background:var(--gold-soft);color:var(--gold-2);border-color:rgba(2
 .wv{animation:wv 16s linear infinite}
 @keyframes wv{from{transform:translateX(0)}to{transform:translateX(-250px)}}
 @media (prefers-reduced-motion:reduce){.wv{animation:none}}
+/* ===== v6: flotante y animación de zona ===== */
+.map-live{height:180px;padding:0;overflow:hidden;display:block}
+.map-live iframe{width:100%;height:100%;border:0;display:block;filter:invert(.92) hue-rotate(185deg) saturate(.7) brightness(.95)}
+.fab{position:fixed;left:20px;bottom:20px;z-index:75;display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.fab-btn{width:58px;height:58px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;color:#140d02;background:linear-gradient(135deg,var(--gold-2),var(--gold));box-shadow:0 0 0 1px rgba(255,213,138,.45),0 10px 30px rgba(227,178,91,.35),0 0 26px rgba(55,220,255,.18);transition:transform .2s}
+.fab-btn:hover{transform:scale(1.05)}
+.fab-btn svg{transition:transform .25s}
+.fab-btn[aria-expanded="true"] svg{transform:rotate(45deg)}
+.fab-menu{width:min(300px,calc(100vw - 32px));background:linear-gradient(180deg,#0e1834,#080d1c);border:1px solid var(--line);border-radius:20px;padding:10px;box-shadow:0 18px 50px rgba(0,0,0,.55),inset 0 0 0 1px rgba(55,220,255,.06);transform-origin:bottom left;animation:fabIn .22s ease-out}
+@keyframes fabIn{from{opacity:0;transform:translateY(8px) scale(.96)}to{opacity:1;transform:none}}
+.fab-item{display:flex;align-items:center;gap:12px;width:100%;min-height:48px;padding:0 12px;border:0;border-radius:12px;background:transparent;color:var(--ink);font:500 .9rem/1.2 var(--font);text-decoration:none;cursor:pointer;text-align:left}
+.fab-item:hover,.fab-item[aria-expanded="true"]{background:rgba(55,220,255,.1);color:var(--brand)}
+.fab-item svg{flex:none;stroke:var(--brand)}
+.fab-info{margin:6px 4px 4px;padding:12px;border-top:1px solid var(--line);font-size:.84rem;color:var(--ink-2);line-height:1.5}
+.fab-info strong{display:block;color:var(--gold);font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;margin:8px 0 2px}
+.fab-info strong:first-child{margin-top:0}
+.fab-info a{color:var(--brand)}
+@media (max-width:860px){.fab{left:16px;bottom:88px;z-index:52}.fab-btn{width:52px;height:52px}}
+@media (prefers-reduced-motion:reduce){.fab-menu{animation:none}}
+.fx-ring{fill:none;stroke:#ffd58a;stroke-width:1.6;transform-box:fill-box;transform-origin:center;animation:fxr 1.1s cubic-bezier(.2,.7,.3,1) both}
+.fx-ring.c{stroke:#7ee9ff}
+.fx-core{fill:url(#goldG);transform-box:fill-box;transform-origin:center;animation:fxc .9s ease-out both}
+.fx-br{fill:none;stroke:#ffd58a;stroke-width:1.8;stroke-linecap:round;transform-box:fill-box;transform-origin:center;animation:fxb 1.2s ease-out both}
+@keyframes fxr{0%{transform:scale(.25);opacity:1}100%{transform:scale(1);opacity:0}}
+@keyframes fxc{0%{transform:scale(.3);opacity:1}100%{transform:scale(1.8);opacity:0}}
+@keyframes fxb{0%{transform:scale(1.7) rotate(-45deg);opacity:0}35%{transform:scale(1) rotate(0);opacity:1}75%{opacity:1}100%{transform:scale(1);opacity:0}}
+.spine-seg.flash rect,.spine-seg.flash path{animation:sflash .9s ease-out}
+@keyframes sflash{0%,40%{fill:rgba(255,213,138,.85)}}
+@media (prefers-reduced-motion:reduce){.fx-ring,.fx-core,.fx-br,.spine-seg.flash rect,.spine-seg.flash path{animation:none;opacity:0}}
 header.top .wrap{max-width:1240px}
 .nav ul{gap:20px}
 @media (max-width:1100px){.nav ul{display:none}}
@@ -588,7 +617,7 @@ header.top .wrap{max-width:1240px}
   <div class="wrap hero-grid">
     <div>
       <span class="wordmark">KYRO <span>ATLAS</span><small>Chiropractic &amp; Athletic Science</small></span>
-      <span class="eyebrow" data-i18n="hero.eyebrow">Quiropráctica clínica y rendimiento atlético · [Ciudad]</span>
+      <span class="eyebrow" data-i18n="hero.eyebrow">Quiropráctica clínica y rendimiento atlético · CDMX</span>
       <h1 id="hero-h" data-i18n="hero.h">Muévete sin dolor.<br><b>Rinde al máximo.</b></h1>
       <p class="lead" data-i18n="hero.lead">Valoramos tu columna, tus articulaciones y tu forma de moverte. Tratamos con ajuste quiropráctico, terapia manual y ejercicio, y te explicamos cada paso con claridad, tanto si quieres dejar atrás una molestia como si buscas rendir más en tu deporte.</p>
       <div class="hero-actions">
@@ -774,7 +803,7 @@ header.top .wrap{max-width:1240px}
       <article class="doc">
         <div class="pic"><span data-i18n="team.foto">[PENDIENTE]<br>Foto</span></div>
         <div class="body">
-          <h3 data-i18n="team.n1">[Nombre del quiropráctico 1]</h3>
+          <h3 data-i18n="team.n1">Ricardo de los Cobos</h3>
           <p><span data-i18n="team.q1">"Antes de ajustar, quiero entender cómo te mueves y qué te pide tu día. Ahí empieza un buen plan."</span> <span class="pend" data-i18n="team.qv">[VERIFICAR: frase propuesta]</span></p>
           <dl>
             <dt data-i18n="team.tit">Título</dt><dd><span class="pend" data-i18n="p.pend">[PENDIENTE]</span></dd>
@@ -788,7 +817,7 @@ header.top .wrap{max-width:1240px}
       <article class="doc">
         <div class="pic"><span data-i18n="team.foto">[PENDIENTE]<br>Foto</span></div>
         <div class="body">
-          <h3 data-i18n="team.n2">[Nombre del quiropráctico 2]</h3>
+          <h3 data-i18n="team.n2">Enrique Alguibay</h3>
           <p><span data-i18n="team.q2">"Mi meta es que vuelvas a entrenar con confianza y que sepas qué hacer para no recaer."</span> <span class="pend" data-i18n="team.qv">[VERIFICAR: frase propuesta]</span></p>
           <dl>
             <dt data-i18n="team.tit">Título</dt><dd><span class="pend" data-i18n="p.pend">[PENDIENTE]</span></dd>
@@ -853,7 +882,7 @@ header.top .wrap{max-width:1240px}
       <h2 id="book-h" data-i18n="book.h">Agenda tu <b>valoración</b></h2>
       <p class="lead" data-i18n="book.lead">Déjanos tus datos y te contactamos para confirmar tu cita. La valoración la hace el quiropráctico en consulta; aquí no te pedimos describir síntomas.</p>
       <div class="urgent" role="note" data-i18n="urg">Este sitio no atiende urgencias. Si tienes dolor intenso, una caída o accidente reciente, o pérdida de fuerza o sensibilidad, acude a urgencias o llama al 911.</div>
-      <p style="margin-top:20px"><a class="btn btn-ghost wa" id="waBtn" href="https://wa.me/?text=Hola%2C%20quiero%20agendar%20una%20valoraci%C3%B3n" target="_blank" rel="noopener" data-i18n="cta.wa">Escribir por WhatsApp</a><br><span class="demo-note"><span data-i18n="book.wan">Número de WhatsApp:</span> <span class="pend" data-i18n="p.pend">[PENDIENTE]</span></span></p>
+      <p style="margin-top:20px"><a class="btn btn-ghost wa" id="waBtn" href="https://wa.me/525539557856?text=Hola%2C%20quiero%20agendar%20una%20valoraci%C3%B3n" target="_blank" rel="noopener" data-i18n="cta.wa">Escribir por WhatsApp</a><br><span class="demo-note"><span data-i18n="book.wan">WhatsApp:</span> <a href="https://wa.me/525539557856" target="_blank" rel="noopener">55 3955 7856</a></span></p>
     </div>
     <div>
       <form id="bookForm" novalidate>
@@ -894,18 +923,18 @@ header.top .wrap{max-width:1240px}
       <div>
         <p class="foot-brand">KYRO <b>ATLAS</b></p>
         <p class="foot-tag">Chiropractic &amp; Athletic Science</p>
-        <p><span data-i18n="ft.dir">Dirección:</span> <span class="pend" data-i18n="p.pend">[PENDIENTE]</span></p>
-        <div class="map-ph"><span class="pend" data-i18n="ft.mapa">[PENDIENTE] Mapa</span></div>
+        <p><span data-i18n="ft.dir">Dirección:</span> Calle Gobernador Protasio Tagle 121, casa 2, San Miguel Chapultepec, CDMX</p>
+        <div class="map-ph map-live"><iframe title="Mapa de KYRO ATLAS" data-i18n-attr="title:ft.mapt" src="https://www.google.com/maps?q=Gobernador+Protasio+Tagle+121,+San+Miguel+Chapultepec,+Ciudad+de+M%C3%A9xico&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div><p style="margin-top:8px"><a href="https://www.google.com/maps/search/?api=1&amp;query=Gobernador+Protasio+Tagle+121,+San+Miguel+Chapultepec,+Ciudad+de+M%C3%A9xico" target="_blank" rel="noopener" data-i18n="ft.mapa">Abrir en Google Maps</a></p>
       </div>
       <div>
         <h3 data-i18n="ft.hor">Horarios</h3>
         <p><span class="pend" data-i18n="ft.horp">[PENDIENTE: días y horarios]</span></p>
         <h3 data-i18n="ft.con">Contacto</h3>
-        <p><span data-i18n="f.tel">Teléfono</span>: <span class="pend" data-i18n="p.pend">[PENDIENTE]</span><br>WhatsApp: <span class="pend" data-i18n="p.pend">[PENDIENTE]</span><br><span data-i18n="ft.mail">Correo</span>: <span class="pend" data-i18n="p.pend">[PENDIENTE]</span></p>
+        <p><span data-i18n="ft.tels">Teléfono y WhatsApp</span>:<br><a href="tel:+525539557856">55 3955 7856</a> (Ricardo de los Cobos)<br><a href="tel:+525522688571">55 2268 8571</a> (Enrique Alguibay)<br><span data-i18n="ft.mail">Correo</span>: <span class="pend" data-i18n="p.pend">[PENDIENTE]</span></p>
       </div>
       <div>
         <h3 data-i18n="ft.prof">Profesionales</h3>
-        <p data-i18n="ft.profp">[Quiropráctico 1], cédula <span class="pend">[PENDIENTE]</span><br>[Quiropráctico 2], cédula <span class="pend">[PENDIENTE]</span></p>
+        <p data-i18n="ft.profp">Ricardo de los Cobos, cédula <span class="pend">[PENDIENTE]</span><br>Enrique Alguibay, cédula <span class="pend">[PENDIENTE]</span></p>
         <p id="aviso"><a href="#aviso" data-i18n="ft.aviso">Aviso de privacidad</a> <span class="pend" data-i18n="p.pend">[PENDIENTE]</span> · <a href="#aviso" data-i18n="ft.term">Términos</a></p>
       </div>
     </div>
@@ -918,6 +947,20 @@ header.top .wrap{max-width:1240px}
     <a class="reader-close" href="#blog" id="readerClose" aria-label="Cerrar">×</a>
     <article id="readerBody"></article>
   </div>
+</div>
+
+<div class="fab" id="fab">
+  <div class="fab-menu" id="fabMenu" hidden>
+    <a class="fab-item" href="#agenda" id="fabBook"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="fab.agendar">Agendar valoración</span></a>
+    <a class="fab-item" id="fabHelp" href="https://wa.me/525539557856?text=Hola%2C%20tengo%20una%20pregunta%20sobre%20KYRO%20ATLAS" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/><path d="M9.5 9.5a2.5 2.5 0 0 1 4.8.9c0 1.6-2.3 2-2.3 3.3M12 16.5h.01"/></svg><span data-i18n="fab.ayuda">Ayuda por WhatsApp</span></a>
+    <button type="button" class="fab-item" id="fabInfoBtn" aria-expanded="false" aria-controls="fabInfo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span data-i18n="fab.info">Información</span></button>
+    <div class="fab-info" id="fabInfo" hidden>
+      <strong data-i18n="fab.dir">Dirección</strong>Calle Gobernador Protasio Tagle 121, casa 2, San Miguel Chapultepec, CDMX<br><a href="https://www.google.com/maps/search/?api=1&amp;query=Gobernador+Protasio+Tagle+121,+San+Miguel+Chapultepec,+Ciudad+de+M%C3%A9xico" target="_blank" rel="noopener" data-i18n="ft.mapa">Abrir en Google Maps</a>
+      <strong data-i18n="fab.tels">Teléfonos y WhatsApp</strong><a href="tel:+525539557856">55 3955 7856</a> (Ricardo de los Cobos)<br><a href="tel:+525522688571">55 2268 8571</a> (Enrique Alguibay)
+      <strong data-i18n="fab.hor">Horarios</strong><span class="pend" data-i18n="ft.horp">[PENDIENTE: días y horarios]</span>
+    </div>
+  </div>
+  <button type="button" class="fab-btn" id="fabBtn" aria-expanded="false" aria-controls="fabMenu" aria-label="Agendar, ayuda e información" data-i18n-attr="aria-label:fab.label"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
 </div>
 
 <div class="sticky-cta">
@@ -1026,33 +1069,33 @@ header.top .wrap{max-width:1240px}
   var ORDER = ['cuello','hombro','espalda-alta','espalda-baja','mano','cadera','rodilla','pie'];
   var T = {
     es:{sel:'Zona seleccionada', ve:'Lo que solemos ver', ev:'Cómo lo evaluamos', tr:'Cómo lo trabajamos', rf:'Cuándo te referimos al médico', ses:'Sesiones relacionadas', who:'Te atiende',
-        docn:'[Nombre del quiropráctico]', pend:'[PENDIENTE]', book:'Agendar valoración para esta zona', bookg:'Agendar valoración', wa:'WhatsApp', close:'Cerrar',
+        docn:'Ricardo de los Cobos o Enrique Alguibay', pend:'[PENDIENTE]', book:'Agendar valoración para esta zona', bookg:'Agendar valoración', wa:'WhatsApp', close:'Cerrar',
         urg:'No atendemos urgencias. Si tienes dolor intenso, una caída o accidente reciente, o pérdida de fuerza o sensibilidad, acude a urgencias o llama al 911.',
         note:'Contenido clínico propuesto. [VERIFICAR] con los quiroprácticos antes de publicar.', ver:'Ver información de ', reg:', región ',
         otra:'Otra zona o no estoy seguro', otrah:'Otra zona', otrap:'Si tu molestia está en otra parte o no sabes cómo describirla, agenda tu valoración y la revisamos contigo en consulta.',
         c1:'Valoración inicial', c2:'Ajuste quiropráctico', c3:'Sesión con sauna',
         sp:[['Cervical (C1–C7)','Cuello'],['Dorsal (T1–T12)','Espalda alta'],['Lumbar (L1–L5)','Espalda baja'],['Sacro y pelvis','Cadera']],
         err:'Completa nombre, teléfono, correo y acepta el aviso de privacidad.', ok:'Gracias. En la versión publicada, aquí se confirma tu solicitud y te contactamos para agendar. (Vista previa: no se envió ningún dato.)',
-        waText:'Hola, quiero agendar una valoración', langLabel:'Switch to English',
-        title:'KYRO ATLAS | Chiropractic & Athletic Science en [Ciudad]',
-        desc:'KYRO ATLAS, Chiropractic & Athletic Science en [Ciudad]. Quiropráctica clínica, rendimiento atlético y sauna de última generación. Elige la zona que te molesta y agenda tu valoración.'},
+        waText:'Hola, quiero agendar una valoración', helpText:'Hola, tengo una pregunta sobre KYRO ATLAS', langLabel:'Switch to English',
+        title:'KYRO ATLAS | Chiropractic & Athletic Science en CDMX',
+        desc:'KYRO ATLAS, Chiropractic & Athletic Science en CDMX. Quiropráctica clínica, rendimiento atlético y sauna de última generación. Elige la zona que te molesta y agenda tu valoración.'},
     en:{sel:'Selected area', ve:'What we commonly see', ev:'How we assess it', tr:'How we treat it', rf:'When we refer you to a physician', ses:'Related sessions', who:'Your chiropractor',
-        docn:'[Chiropractor name]', pend:'[PENDING]', book:'Book an assessment for this area', bookg:'Book an assessment', wa:'WhatsApp', close:'Close',
+        docn:'Ricardo de los Cobos or Enrique Alguibay', pend:'[PENDING]', book:'Book an assessment for this area', bookg:'Book an assessment', wa:'WhatsApp', close:'Close',
         urg:'We do not handle emergencies. If you have severe pain, a recent fall or accident, or loss of strength or sensation, go to the ER or call 911.',
         note:'Proposed clinical content. [VERIFY] with the chiropractors before publishing.', ver:'See information for ', reg:', region ',
         otra:'Another area or not sure', otrah:'Another area', otrap:'If your pain is somewhere else or you are not sure how to describe it, book an assessment and we will look at it with you in clinic.',
         c1:'Initial assessment', c2:'Chiropractic adjustment', c3:'Sauna session',
         sp:[['Cervical (C1–C7)','Neck'],['Thoracic (T1–T12)','Upper back'],['Lumbar (L1–L5)','Lower back'],['Sacrum and pelvis','Hip']],
         err:'Please fill in your name, phone and email, and accept the privacy notice.', ok:'Thank you. On the live site, your request is confirmed here and we contact you to schedule. (Preview: no data was sent.)',
-        waText:'Hi, I would like to book an assessment', langLabel:'Cambiar a español',
-        title:'KYRO ATLAS | Chiropractic & Athletic Science in [City]',
-        desc:'KYRO ATLAS, Chiropractic & Athletic Science in [City]. Clinical chiropractic, athletic performance and a state-of-the-art sauna. Pick the area that bothers you and book your assessment.'}
+        waText:'Hi, I would like to book an assessment', helpText:'Hi, I have a question about KYRO ATLAS', langLabel:'Cambiar a español',
+        title:'KYRO ATLAS | Chiropractic & Athletic Science in Mexico City',
+        desc:'KYRO ATLAS, Chiropractic & Athletic Science in Mexico City. Clinical chiropractic, athletic performance and a state-of-the-art sauna. Pick the area that bothers you and book your assessment.'}
   };
   var EN = {
     'banner':'Design preview. Items marked <strong>[PENDING]</strong> or <strong>[VERIFY]</strong> will be completed or confirmed with the clinic before publishing.',
     'nav.enfoque':'Approach','nav.cuerpo':'Body','nav.atletas':'Athletes','nav.sesiones':'Sessions','nav.equipo':'Chiropractors','nav.faq':'FAQ',
     'cta.agendar':'Book an assessment','cta.donde':'Where does it hurt?','cta.wa':'Message us on WhatsApp','cta.zonas':'Areas','cta.zonasl':'Explore body areas',
-    'hero.eyebrow':'Clinical chiropractic and athletic performance · [City]','hero.h':'Move without pain.<br><b>Perform at your best.</b>',
+    'hero.eyebrow':'Clinical chiropractic and athletic performance · Mexico City','hero.h':'Move without pain.<br><b>Perform at your best.</b>',
     'hero.lead':'We assess your spine, your joints and the way you move. We treat with chiropractic adjustments, manual therapy and exercise, and explain every step clearly, whether you want to leave pain behind or perform better in your sport.',
     'p.pend':'[PENDING]','hero.f1':'years of combined experience','hero.f2':'certified chiropractors','hero.f3':'built into your session',
     'enf.eyebrow':'Our approach','enf.h':'First we understand, <b>then we adjust</b>',
@@ -1095,7 +1138,7 @@ header.top .wrap{max-width:1240px}
     'seg.c3h':'Gentle options','seg.c3p':'If you prefer not to be adjusted, or it is not right for you, we use gentle mobilization and soft-tissue work.',
     'seg.c4h':'What is normal to feel','seg.c4p':'Some people feel mild soreness or stiffness for 24 to 48 hours, similar to after a workout. Serious complications are rare.',
     'team.eyebrow':'Your chiropractors','team.h':'Two specialists, <b>years of practice</b>','team.lead':'You know who will treat you: each chiropractor shows their degree and professional license.',
-    'team.comb':'years of combined experience treating patients','team.foto':'[PENDING]<br>Photo','team.n1':'[Chiropractor 1 name]','team.n2':'[Chiropractor 2 name]',
+    'team.comb':'years of combined experience treating patients','team.foto':'[PENDING]<br>Photo','team.n1':'Ricardo de los Cobos','team.n2':'Enrique Alguibay',
     'team.q':'"[PENDING: a first-person line about how they work]"','team.tit':'Degree','team.ced':'License','team.inst':'Institution','team.prac':'Practice','team.anos':'years','team.enf':'Focus',
     'vis.eyebrow':'Your first visit','vis.h':'What to expect and what to bring',
     'vis.c1h':'Comfortable clothes','vis.c1p':'Clothes you can move freely in during the exam and movement tests.',
@@ -1117,14 +1160,14 @@ header.top .wrap{max-width:1240px}
     'book.eyebrow':'Book','book.h':'Book your <b>assessment</b>',
     'book.lead':'Leave your details and we will contact you to confirm your appointment. The chiropractor does the assessment in clinic, so we do not ask you to describe symptoms here.',
     'urg':'This site does not handle emergencies. If you have severe pain, a recent fall or accident, or loss of strength or sensation, go to the ER or call 911.',
-    'book.wan':'WhatsApp number:',
+    'book.wan':'WhatsApp:',
     'f.name':'Full name','f.tel':'Phone','f.mail':'Email','f.serv':'Service of interest','f.s0':'Not sure, I want an assessment','f.zone':'General area','f.z0':'Choose an area',
     'z.cuello':'Neck','z.espalda-alta':'Upper back','z.espalda-baja':'Lower back','z.hombro':'Shoulder','z.mano':'Elbow, wrist and hand','z.cadera':'Hip','z.rodilla':'Knee','z.pie':'Ankle and foot','z.otra':'Other',
     'f.hor':'Preferred time','f.man':'Morning','f.tar':'Afternoon','f.ref':'Were you referred?','f.si':'Yes','f.no':'No','f.men':'Are you booking for a minor?','f.mensi':'Yes, I am their mother, father or guardian',
     'f.priv':'I have read and accept the <a href="#aviso">privacy notice</a>.','f.msg':'I agree to receive confirmation and reminder messages (optional).','f.submit':'Request an assessment',
     'f.demo':'Preview form: it does not send data yet. It will be connected to the clinic\'s system before publishing.',
-    'ft.dir':'Address:','ft.mapa':'[PENDING] Map','ft.hor':'Hours','ft.horp':'[PENDING: days and hours]','ft.con':'Contact','ft.mail':'Email',
-    'ft.prof':'Practitioners','ft.profp':'[Chiropractor 1], license <span class="pend">[PENDING]</span><br>[Chiropractor 2], license <span class="pend">[PENDING]</span>',
+    'ft.dir':'Address:','ft.mapa':'Open in Google Maps','ft.mapt':'KYRO ATLAS map','ft.hor':'Hours','ft.horp':'[PENDING: days and hours]','ft.con':'Contact','ft.tels':'Phone and WhatsApp','ft.mail':'Email',
+    'ft.prof':'Practitioners','fab.agendar':'Book an assessment','fab.ayuda':'Help on WhatsApp','fab.info':'Information','fab.dir':'Address','fab.tels':'Phones and WhatsApp','fab.hor':'Hours','fab.label':'Book, help and information','ft.profp':'Ricardo de los Cobos, license <span class="pend">[PENDING]</span><br>Enrique Alguibay, license <span class="pend">[PENDING]</span>',
     'ft.aviso':'Privacy notice','ft.term':'Terms',"p.ver":"[VERIFY]","nav.blog":"Blog","atl.sportsp":"running and trail, CrossFit and functional training, weightlifting, cycling, swimming and triathlon, soccer, padel and tennis, golf and martial arts.","ses.d1":"45 to 60 min","ses.d2":"20 to 30 min","ses.d3":"45 to 60 min","ses.d4":"60 to 75 min","ses.durn":"Approximate durations; every session is adjusted to your case.","sau.l2v":"10 to 20 minutes, with temperature and time adjusted to your tolerance.","vis.c4p":"Swimwear or light clothing, sandals and a water bottle. Avoid heavy meals and alcohol in the hours before.","vis.c4v":"[VERIFY: whether the clinic provides towels]","faq.a9":"No. The sauna is added to your session when your assessment confirms it suits you and you have no contraindications. You can be treated with or without it.","faq.a10":"Yes, with gentle techniques adapted to their stage of growth, especially for teenage athletes. A minor books through their mother, father or guardian, who comes with them to the appointment.","faq.a10p":"[VERIFY: minimum age treated]","faq.a11":"If you cannot make it, let us know at least 24 hours in advance and we will reschedule at no cost. Late cancellations or no-shows may be charged.","faq.q12":"Can you treat me if I have a herniated disc?","faq.a12":"In many cases, yes. A herniation on an MRI is not always the cause of pain, and many improve with time, movement and conservative care. We choose techniques suited to your case and refer you right away if there is progressive weakness or other red flags.","faq.q13":"Do I have to stop training?","faq.a13":"Hardly ever completely. We modify your training load while we work on the area, so you stay active without making it worse.","team.q1":"\"Before I adjust, I want to understand how you move and what your day asks of you. That is where a good plan starts.\"","team.q2":"\"My goal is for you to train with confidence again and to know what to do so it does not come back.\"","team.qv":"[VERIFY: suggested quote]","team.f1":"Clinical chiropractic and spine","team.f2":"Sports performance and extremities","blog.eyebrow":"Blog","blog.h":"The science of movement, <b>made clear</b>","blog.lead":"Short, evidence-based articles to help you understand your body, know what works and make better decisions about your health and training."
   };
 
@@ -1319,6 +1362,25 @@ header.top .wrap{max-width:1240px}
 
   // ---------- Hotspots, columna y lista ----------
   var hs = document.getElementById('bodyHotspots');
+  var fx = el('g',{id:'zoneFx','pointer-events':'none','aria-hidden':'true'}); hs.parentNode.insertBefore(fx, hs);
+  var fxTimer = 0;
+  // animación breve sobre la zona elegida: destello, ondas y mira que se cierra
+  function zoneFx(id){
+    clearTimeout(fxTimer); fx.innerHTML = '';
+    document.querySelectorAll('.spine-seg.flash').forEach(function(n){ n.classList.remove('flash'); });
+    if(!ZONES[id]) return;
+    if(!document.getElementById('spineSvg').hasAttribute('hidden')){
+      document.querySelectorAll('.spine-seg[data-zone="'+id+'"]').forEach(function(n){ void n.getBoundingClientRect(); n.classList.add('flash'); });
+      fxTimer = setTimeout(function(){ document.querySelectorAll('.spine-seg.flash').forEach(function(n){ n.classList.remove('flash'); }); }, 1000);
+      return;
+    }
+    var z = ZONES[id], g = el('g',{},fx);
+    el('circle',{'class':'fx-core',cx:z.x,cy:z.y,r:18},g);
+    [0,.18,.36].forEach(function(d,i){ el('circle',{'class':'fx-ring'+(i===1?' c':''),cx:z.x,cy:z.y,r:46+i*8,style:'animation-delay:'+d+'s'},g); });
+    var a = 24, b = 9, x = z.x, y = z.y;
+    el('path',{'class':'fx-br',d:'M'+(x-a)+' '+(y-a+b)+'V'+(y-a)+'H'+(x-a+b)+'M'+(x+a-b)+' '+(y-a)+'H'+(x+a)+'V'+(y-a+b)+'M'+(x+a)+' '+(y+a-b)+'V'+(y+a)+'H'+(x+a-b)+'M'+(x-a+b)+' '+(y+a)+'H'+(x-a)+'V'+(y+a-b)},g);
+    fxTimer = setTimeout(function(){ fx.innerHTML = ''; }, 1500);
+  }
   ORDER.forEach(function(id){
     var z = ZONES[id];
     var g = el('g',{'class':'zone-hit','tabindex':'0','role':'button','data-zone':id},hs);
@@ -1385,9 +1447,9 @@ header.top .wrap{max-width:1240px}
         '<div class="label">'+t.ev+'</div><p>'+esc(z.ev)+'</p>'+
         '<div class="label">'+t.tr+'</div><p>'+esc(z.tr)+'</p>'+
         '<div class="label">'+t.ses+'</div><ul>'+ZONES[id].ses.map(function(s){return '<li>'+t[s]+'</li>';}).join('')+'</ul>'+
-        '<div class="label">'+t.who+'</div><div class="who"><span class="avatar">Q</span><span>'+t.docn+' <span class="pend">'+t.pend+'</span></span></div>'+
+        '<div class="label">'+t.who+'</div><div class="who"><span class="avatar">Q</span><span>'+t.docn+'</span></div>'+
         '<div class="card-actions"><a class="btn btn-primary" href="#agenda" data-book="'+id+'">'+t.book+'</a>'+
-        '<a class="btn btn-ghost" href="https://wa.me/?text='+encodeURIComponent(t.waText)+'" target="_blank" rel="noopener">'+t.wa+'</a></div>'+
+        '<a class="btn btn-ghost" href="https://wa.me/525539557856?text='+encodeURIComponent(t.waText)+'" target="_blank" rel="noopener">'+t.wa+'</a></div>'+
         '<div class="refer"><strong>'+t.rf+'</strong><p>'+esc(z.rf)+'</p></div>'+
         '<div class="urg-mini">'+t.urg+'</div>'+
         '<p class="sample-note">'+t.note+'</p>';
@@ -1398,17 +1460,26 @@ header.top .wrap{max-width:1240px}
     card.classList.add('open'); scrim.classList.add('open');
   }
   function close(){ card.classList.remove('open'); scrim.classList.remove('open'); }
+  // en móvil la tarjeta cubre la figura: primero se ve la animación y después sube la tarjeta
+  var pickTimer = 0;
+  function pick(id){
+    clearTimeout(pickTimer); zoneFx(id);
+    if(mq.matches && ZONES[id] && !reduce.matches){
+      document.querySelectorAll('[data-zone]').forEach(function(n){ n.classList.toggle('active', n.dataset.zone===id); });
+      pickTimer = setTimeout(function(){ open(id); }, 700);
+    } else open(id);
+  }
 
   document.addEventListener('click', function(e){
     var t = e.target.closest('[data-zone]');
-    if(t && !t.closest('#zoneCard') && t.tagName!=='OPTION'){ open(t.dataset.zone); return; }
+    if(t && !t.closest('#zoneCard') && t.tagName!=='OPTION'){ pick(t.dataset.zone); return; }
     var b = e.target.closest('[data-book]');
     if(b){ var sel=document.getElementById('f-zone'); sel.value=b.dataset.book; close(); }
     if(e.target.closest('.close-card') || e.target===scrim) close();
   });
   document.addEventListener('keydown', function(e){
     var t = e.target.closest && e.target.closest('[role=button][data-zone]');
-    if(t && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); open(t.dataset.zone); }
+    if(t && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); pick(t.dataset.zone); }
     if(e.key==='Escape') close();
   });
 
@@ -1548,6 +1619,20 @@ header.top .wrap{max-width:1240px}
   reader.addEventListener('click', function(e){ if(e.target===reader) location.hash = '#blog'; });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape' && !reader.hidden) location.hash = '#blog'; });
 
+  // ---------- Botón flotante: agendar, ayuda e información ----------
+  var fab = document.getElementById('fab'), fabBtn = document.getElementById('fabBtn'), fabMenu = document.getElementById('fabMenu');
+  var fabInfoBtn = document.getElementById('fabInfoBtn'), fabInfo = document.getElementById('fabInfo');
+  function fabToggle(on){
+    fabMenu.hidden = !on; fabBtn.setAttribute('aria-expanded', on);
+    if(!on){ fabInfo.hidden = true; fabInfoBtn.setAttribute('aria-expanded','false'); }
+  }
+  fabBtn.addEventListener('click', function(){ fabToggle(fabMenu.hidden); });
+  fabInfoBtn.addEventListener('click', function(){ var on = fabInfo.hidden; fabInfo.hidden = !on; fabInfoBtn.setAttribute('aria-expanded', on); });
+  document.getElementById('fabBook').addEventListener('click', function(){ fabToggle(false); });
+  document.getElementById('fabHelp').addEventListener('click', function(){ fabToggle(false); });
+  document.addEventListener('click', function(e){ if(!fabMenu.hidden && !fab.contains(e.target)) fabToggle(false); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && !fabMenu.hidden){ fabToggle(false); fabBtn.focus(); } });
+
   // ---------- Idioma ES / EN ----------
   var ES = {}, langBtn = document.getElementById('langBtn'), metaD = document.querySelector('meta[name=description]');
   function applyLang(l){
@@ -1564,7 +1649,8 @@ header.top .wrap{max-width:1240px}
       });
     });
     document.title = t.title; if(metaD) metaD.setAttribute('content', t.desc);
-    document.getElementById('waBtn').href = 'https://wa.me/?text='+encodeURIComponent(t.waText);
+    document.getElementById('waBtn').href = 'https://wa.me/525539557856?text='+encodeURIComponent(t.waText);
+    document.getElementById('fabHelp').href = 'https://wa.me/525539557856?text='+encodeURIComponent(t.helpText);
     langBtn.setAttribute('aria-label', t.langLabel);
     langBtn.children[0].className = l==='es' ? 'on' : ''; langBtn.children[2].className = l==='en' ? 'on' : '';
     labelDynamic(); renderBlog();
